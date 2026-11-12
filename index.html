@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>English Grade VIII Practice Hub</title>
+<style>
+:root{--bg:#f7f6f2;--card:#fff;--tx:#1f2430;--mut:#667085;--ac:#2f6fed;--ok:#1e8e4e;--bad:#c93a3a;--bd:#dcdad2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181f;--card:#1f242e;--tx:#eceef3;--mut:#9aa3b2;--ac:#6c9bff;--ok:#4cc784;--bad:#ff7a7a;--bd:#323947;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15181f;--card:#1f242e;--tx:#eceef3;--mut:#9aa3b2;--ac:#6c9bff;--ok:#4cc784;--bad:#ff7a7a;--bd:#323947;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 40px}
+h2{font-size:1.1rem;margin:18px 0 6px}
+.hero{background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 50%,#7048e8));color:#fff;border-radius:22px;padding:20px 18px;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:0 10px 26px color-mix(in srgb,var(--ac) 35%,transparent)}
+.hero h1{margin:0;font-size:1.55rem;line-height:1.2}.hero p{margin:6px 0 10px;opacity:.95;font-size:.95rem}.hero .big{position:absolute;right:12px;top:4px;font-size:4rem;opacity:.28}
+.hero button{background:rgba(255,255,255,.22);color:#fff;border-color:rgba(255,255,255,.5);font-size:.88rem;padding:5px 11px}
+#chs button{flex:1 1 auto;border-radius:999px;font-weight:600}
+#sks{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+#sks button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 2px;border-radius:16px;font-size:.84rem;font-weight:700}
+#sks .em{font-size:1.5rem}
+.card{animation:up .35s ease both;box-shadow:0 3px 12px rgba(0,0,0,.06)}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+button{transition:transform .1s,background .2s}button:active{transform:scale(.95)}
+button.sm{border-radius:999px}
+button.play{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:700}
+.ch{margin:14px 0 0;font-size:1.25rem;color:var(--ac)}
+.prog{height:9px;border-radius:9px;background:var(--bd);overflow:hidden;margin:4px 0 6px}.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .4s}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:12px;max-width:90%;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .3s}
+#toast.on{opacity:1}
+.sub{color:var(--mut);margin:0 0 14px;font-size:.92rem}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:7px 12px;cursor:pointer}
+button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+button.sm{padding:3px 10px;font-size:.88rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-top:8px}
+.txt{background:color-mix(in srgb,var(--ac) 8%,var(--card));border-left:4px solid var(--ac);padding:10px 14px;border-radius:8px;margin:8px 0;white-space:pre-line}
+.txt[hidden]{display:none}
+.it{padding:8px 0;border-top:1px solid var(--bd)}.it:first-of-type{border-top:0}
+.ans{display:block;margin-top:4px;color:var(--ok);font-weight:600}
+.ans[hidden]{display:none}
+input[type=text],textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:5px 8px;width:150px;max-width:100%}
+textarea{width:100%;min-height:110px;margin-top:6px}
+.res{margin-left:6px;font-weight:600}.ok{color:var(--ok)}.bad{color:var(--bad)}
+.note{font-size:.82rem;color:var(--mut);margin-top:18px}
+label{display:block;margin:4px 0}
+</style>
+</head>
+<body>
+<main>
+<div class="hero"><span class="big">🎧</span><h1>English Grade VIII Practice Hub</h1><p>Listen, read, write, and speak with Chapters 5 to 9 of the Group 5 teaching materials.</p><button onclick="say('Hello! This is a voice test. Can you hear me?')">🔊 Test voice</button> <button id="mt" onclick="mute=!mute;this.textContent=mute?'🔇 Sound off':'🔔 Sound on'">🔔 Sound on</button></div>
+<div class="row" id="chs"></div>
+<div class="row" id="sks"></div>
+<div id="view"></div><div id="toast"></div>
+<p class="note">Answers follow the answer key of the textbook. Writing answers in the boxes are not saved.</p>
+</main>
+<script>
+const D=[
+{n:"5 Greeting Cards",
+L:{p:[["Card A","Dear Sinta, Congratulations on your graduation! We are very proud of you. Warm regards, Uncle Budi."],["Card B","Dear Mr. Hadi, Happy Teachers’ Day! Thank you for your patience. Best wishes, Class VIII-A."],["Card C","Dear friends, Merry Christmas and Happy New Year! May your days be bright. Love, Maria."]],
+ q:[["Card A: What is the special day, and who is the receiver?","Graduation; Sinta"],["Card B: What is the special day, and who is the receiver?","Teachers’ Day; Mr. Hadi"],["Card C: What are the special days, and who are the receivers?","Christmas and New Year; friends"]]},
+R:{t:"A Card for Mother",x:"Dear Mom,\nHappy Mother’s Day! You are the kindest person in the world. You cook delicious meals, you help me with my homework, and you always smile. Right now, I am writing this card in my room. There is a small flower on my desk for you.\nI love you more than anything.\nYour daughter,\nSalsa",
+ q:[["Who is the card for?","Salsa’s mother (Mom)."],["Who writes the card?","Salsa (her daughter)."],["What special day is it?","Mother’s Day."],["What does Salsa say about her mother?","She says that her mother is the kindest person in the world."],["What does her mother usually do for her?","She cooks delicious meals, helps with homework, and always smiles."],["What is on Salsa’s desk?","A small flower."],["Which part of the card is the opening?","“Dear Mom,”"],["Which part of the card is the closing?","“Your daughter, Salsa”"]]},
+W:{f:{i:"Complete the sentences with: Happy, Mubarak, Wishing, for, Best, May.",a:[["____ Birthday, Rani!","Happy"],["Eid ____!","Mubarak"],["I am ____ you a happy new year.","Wishing"],["Thank you ____ teaching us.","for"],["____ wishes, Dita","Best"],["____ Allah bless you and your family.","May"]]},
+ e:{i:"Arrange the parts into a correct greeting card: A. Wishing you good health and happiness. B. Love, Sinta C. Happy Eid al-Fitr, Grandma! D. Dear Grandma,",a:[["Write the correct order.","D – C – A – B"]]},
+ t:{i:"Write a very short greeting card (2 to 3 sentences) for: (1) your best friend’s birthday, (2) your grandmother’s Eid al-Fitr, (3) your English teacher’s Teachers’ Day.",c:["I wrote an opening (Dear …).","I mentioned the special day and gave a wish.","I wrote a closing and my name.","I used correct spelling and capital letters.","My card is suitable for the receiver."]}},
+S:{q:[["Rina’s birthday is on Saturday. What do you want to write on her card?","Happy Birthday! Wishing you all the best."],["When is your birthday?","It’s on March 12th."],["I will send you a card.","Thank you very much."]],
+ t:["Role-play (pairs): choose one special day. Student A gives a greeting and a wish. Student B responds and asks one question about the celebration. Then change roles."]}},
+{n:"6 Labels",
+L:{p:[["Label","Sweet Milk Tea. Net volume: 200 ml. Ingredients: tea, milk, sugar. Best before: 20 June 2028. Store in the refrigerator. Shake well. Do not leave it in the sun."]],
+ q:[["Product?","Sweet Milk Tea"],["Net volume?","200 ml"],["Ingredients?","Tea, milk, sugar"],["Best before?","20 June 2028"],["Instructions?","Store in the refrigerator; shake well; do not leave it in the sun."]]},
+R:{t:"Crunchy Corn Snack",x:"Crunchy Corn Snack\nNet weight: 70 g\nIngredients: corn, vegetable oil, salt\nBest before: 10 March 2028\nKeep in a cool, dry place. Close the packet tightly after opening. Do not eat if the packet is open or damaged. Keep away from direct sunlight.\nProduced by Nusantara Snacks Ltd., Indonesia.",
+ q:[["What is the product?","Crunchy Corn Snack."],["How much is in the packet?","70 g."],["What are the ingredients?","Corn, vegetable oil, and salt."],["When is the best before date?","10 March 2028."],["Where should you keep the snack?","In a cool, dry place, away from direct sunlight."],["What should you do after opening the packet?","Close the packet tightly."],["When should you not eat the snack?","When the packet is open or damaged."],["Who produces the snack?","Nusantara Snacks Ltd."]]},
+W:{f:{i:"Complete the label with: Net, Keep, Do not, Store, Best.",a:[["____ weight: 120 g","Net"],["____ before: 5 May 2028","Best"],["____ in a cool place.","Store"],["____ out of reach of children.","Keep"],["____ eat if the packet is damaged.","Do not"]]},
+ e:{i:"Each label sentence has a mistake. Write the correct sentence.",a:[["Stores in a cool place.","Store in a cool place."],["Do not to freeze.","Do not freeze."],["Shaking well before use.","Shake well before use."],["Keep out the reach of children.","Keep out of reach of children."]]},
+ t:{i:"Write a very short label for a product of your choice (a bottle of tea, a packet of biscuits, or a bar of soap): product name, net weight or volume, ingredients, best before date, two instructions, and one warning.",c:["I wrote the product name.","I wrote the net weight or volume with a unit.","I wrote the ingredients and the date.","I used the base verb for instructions.","I used Do not or Warning for a prohibition."]}},
+S:{q:[["Label 1 (Fresh Orange Juice): What is the product? How much is in the bottle? What should you do? What should you not do?","It is orange juice. There is 250 ml. Shake well. Do not freeze."],["Label 2 (Lemon Dish Soap): What is the product? How much is in the bottle? What should you do? What should you not do?","It is a dish soap. There is 500 ml. Rinse with water. Do not drink."]],
+ t:["Product presentation (groups of four): bring or draw a product label. Take turns to read it aloud and explain the information and the instructions. Others ask one question each."]}},
+{n:"7 There is / There are",
+L:{p:[["Description","Look at my bedroom. There is a bed next to the window. There are three pictures on the wall. There is a small table between the bed and the cupboard. On the table, there is a lamp and two books. There aren’t any toys in my room."]],
+ q:[["Where is the bed?","It is next to the window."],["How many pictures are there on the wall?","There are three pictures."],["Where is the small table?","It is between the bed and the cupboard."],["What is on the table?","There is a lamp and two books."],["Are there any toys in the room?","No, there aren’t."]]},
+R:{t:"My Classroom",x:"There is a whiteboard in front of the class. There are thirty-two chairs and sixteen tables. There is a clock on the wall. There are two posters above the window.\nThere isn’t a computer in my classroom, but there are many books on the shelf. There is a flag in the corner. There are also some plants near the door.\nIs there a cat in my classroom? No, there isn’t!",
+ q:[["Where is the whiteboard?","It is in front of the class."],["How many chairs are there?","There are thirty-two chairs."],["How many tables are there?","There are sixteen tables."],["What is on the wall?","There is a clock on the wall."],["Are there any posters? Where are they?","Yes, there are. There are two posters above the window."],["Is there a computer in the classroom?","No, there isn’t."],["What is on the shelf?","There are many books on the shelf."],["Is there a cat in the classroom?","No, there isn’t."]]},
+W:{f:{i:"Complete the sentences with is, are, isn’t, or aren’t.",a:[["There ____ a bird in the cage.","is"],["There ____ five students in the library.","are"],["There ____ any milk in the fridge. It’s empty.","isn’t"],["____ there a hospital near your house?","Is"],["There ____ two cats under the table.","are"],["There ____ any teachers in the canteen now.","aren’t"]]},
+ e:{i:"Arrange the words into correct sentences.",a:[["a / there / is / in / the / park / playground","There is a playground in the park."],["are / how / many / there / pens / in / the bag / ?","How many pens are there in the bag?"],["any / are / there / chairs / in / the garden / ?","Are there any chairs in the garden?"],["books / there / aren’t / any / on the desk","There aren’t any books on the desk."]]},
+ t:{i:"Write 5 sentences about your living room or your school yard using there is and there are.",c:["I wrote 5 sentences.","I used there is and there are correctly.","I included at least one negative sentence.","I included at least one question."]}},
+S:{q:[["Is there a goat in the zoo? (Table: rabbits 6, ducks 4, goat 1, monkeys 0)","Yes, there is."],["Are there any monkeys?","No, there aren’t."],["How many rabbits are there?","There are six rabbits."],["Are there more ducks or rabbits?","There are more rabbits than ducks."]],
+ t:["Describe and draw (pairs): Student A describes his or her bedroom with there is and there are. Student B listens and draws it. Compare the drawing with the real room, then change roles."]}},
+{n:"8 Simple Present",
+L:{p:[["Text","Hello, I’m Lina. Every morning, I get up at half past five. I usually help my mother in the kitchen. I go to school by bicycle. School starts at seven. On Sundays, I never get up late. I always visit my grandmother in the afternoon."]],
+ q:[["What time does Lina get up?","She gets up at half past five."],["Who does Lina help in the kitchen?","She helps her mother."],["How does she go to school?","She goes to school by bicycle."],["What time does school start?","School starts at seven."],["What does she always do on Sunday afternoon?","She always visits her grandmother."]]},
+R:{t:"A Day in My Life",x:"My name is Bima. I live in Medan. I get up at five o’clock every morning. I pray and take a bath. My mother cooks breakfast, and my father reads the newspaper. I go to school by bus. School starts at seven. I study English on Tuesday and Thursday. My teacher, Mrs. Sari, always gives us interesting activities.\nI don’t go to school on Sunday. On Sunday, I usually help my father wash the car. In the afternoon, I play football with my friends. The sun rises in the east, and I always enjoy my morning.",
+ q:[["What time does Bima get up?","He gets up at five o’clock."],["What does his mother do in the morning?","She cooks breakfast."],["How does Bima go to school?","He goes to school by bus."],["When does school start?","School starts at seven."],["When does Bima study English?","He studies English on Tuesday and Thursday."],["Does Bima go to school on Sunday?","No, he doesn’t."],["What does Bima usually do on Sunday?","He usually helps his father wash the car (and plays football in the afternoon)."],["Find one sentence that tells a general truth.","“The sun rises in the east.”"]]},
+W:{f:{i:"Complete the sentences with the correct form of the verbs.",a:[["Dina (get up) ____ at five o’clock.","gets up"],["We (not/have) ____ breakfast at school.","don’t have|do not have"],["(Do/Does) ____ your mother cook every day?","Does"],["The earth (go) ____ around the sun.","goes"],["My parents (work) ____ in a hospital.","work"],["He (wash) ____ his motorbike on Sunday.","washes"]]},
+ e:{i:"Make questions for the words in brackets.",a:[["Rina goes to school [by bike].","How does Rina go to school?"],["My parents work [in a hospital].","Where do your parents work?"],["The students study English [twice a week].","How often do the students study English?"],["Tono gets up [at five].","What time does Tono get up?"]]},
+ t:{i:"Write 6 sentences about your daily routine on school days. Use at least two adverbs of frequency and one negative sentence.",c:["I wrote 6 sentences.","I used -s/-es with he, she, or it.","I used at least two adverbs of frequency.","I wrote at least one negative sentence."]}},
+S:{q:[["What time do you get up?",""],["How do you go to school?",""],["What do you usually do after school?",""],["Do you help your parents at home?",""],["What do you do on weekends?",""]],
+ t:["Interview your friend with the questions above and write the answers.","Report to the class. Example: Ayu gets up at 5.30. She goes to school by motorbike. She doesn’t eat breakfast at home."]}},
+{n:"9 Comparing",
+L:{p:[["Text","I have three friends: Adi, Budi, and Citra. Budi is the tallest. He is 165 centimeters tall. Adi is shorter than Budi, but he is taller than Citra. Citra is the youngest. She is twelve years old. Budi is the oldest. He is fourteen."]],
+ q:[["Who is the tallest?","Budi."],["Who is shorter, Adi or Budi?","Adi is shorter."],["Who is the youngest?","Citra."],["How old is Budi?","He is fourteen years old."],["Is Citra taller than Adi?","No, she isn’t. (Adi is taller than Citra.)"]]},
+R:{t:"Animals in the Zoo",x:"The elephant is heavier than the giraffe, but the giraffe is taller than the elephant. A cheetah is faster than a lion. The cheetah is the fastest land animal in the world. The tortoise is slower than the rabbit. In our zoo, there are more monkeys than snakes, but there are fewer tigers than monkeys. The blue whale is the biggest animal on earth.",
+ q:[["Which is heavier, the elephant or the giraffe?","The elephant is heavier."],["Which is taller, the elephant or the giraffe?","The giraffe is taller."],["Which is faster, the cheetah or the lion?","The cheetah is faster."],["What is the fastest land animal in the world?","The cheetah."],["Which is slower, the tortoise or the rabbit?","The tortoise is slower."],["Are there more monkeys or snakes in the zoo?","There are more monkeys."],["Are there fewer tigers or monkeys in the zoo?","There are fewer tigers."],["What is the biggest animal on earth?","The blue whale."]]},
+W:{f:{i:"Complete the sentences with the correct form of the adjectives.",a:[["A motorbike is (fast) ____ a bicycle.","faster than"],["Mount Everest is (high) ____ mountain in the world.","the highest"],["This exercise is (difficult) ____ that one.","more difficult than"],["My cat is (fat) ____ your cat.","fatter than"],["Today is (good) ____ day of my life.","the best"],["There are (many) ____ girls than boys in my class.","more"]]},
+ e:{i:"Compare the friends. Data: Adi 160 cm, age 13. Budi 165 cm, age 14. Citra 150 cm, age 12.",a:[["(tall) Adi / Budi","Adi is shorter than Budi. (or: Budi is taller than Adi.)"],["(old) Citra / Adi","Citra is younger than Adi. (or: Adi is older than Citra.)"],["(tall) Adi, Budi, Citra","Budi is the tallest."],["(young) Adi, Budi, Citra","Citra is the youngest."]]},
+ t:{i:"Compare three animals or things that you know (for example a cat, a horse, and an elephant). Write 4 sentences using comparative and superlative forms.",c:["I wrote 4 sentences.","I used -er/-est or more/most correctly.","I used than in the comparative sentences.","I used at least one superlative with the."]}},
+S:{q:[["Who is taller, you or your father?",""],["Who is the tallest in your family?",""],["Which is faster, a motorbike or a bicycle?",""],["Which is the best school subject for you?",""]],
+ t:["Our class records (groups): find out who is the tallest, the youngest, and the oldest in your group, and who has the most pets. Report to the class. Example: Dina is the tallest in our group. She is taller than Rani."]}}
+];
+const SK=["Listening","Reading","Writing","Speaking"];
+let c=0,s=0;const $=i=>document.getElementById(i);
+const nz=t=>t.toLowerCase().replace(/['‘]/g,"’").replace(/\s+/g," ").trim();
+const EM=["💌","🏷️","🏠","⏰","📏"],CL=["#d6336c","#0c8599","#e8590c","#3b5bdb","#2f9e44"],SE=["🎧","📖","✍️","🗣️"];
+let mute=false,AC,cur;
+function beep(k){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const f={tap:[600],ok:[660,880,1100],bad:[300,220],show:[520]}[k]||[600];f.forEach((hz,i)=>{const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+i*.11;o.frequency.value=hz;g.gain.setValueAtTime(.12,t);g.gain.exponentialRampToValueAtTime(.001,t+.15);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.16)})}catch(e){}}
+function msg(t){const e=$("toast");e.textContent=t;e.className="on";clearTimeout(msg.t);msg.t=setTimeout(()=>e.className="",4500)}
+let VO=[];function lv(){VO=window.speechSynthesis?speechSynthesis.getVoices():[]}
+if(window.speechSynthesis){lv();speechSynthesis.onvoiceschanged=lv}
+function say(t){
+ if(!window.speechSynthesis){msg("This browser cannot play voice. Open the page in Chrome or Safari, or press Show script and read it aloud.");return}
+ speechSynthesis.cancel();speechSynthesis.resume();lv();
+ const v=VO.find(x=>/en[-_]US/i.test(x.lang)&&/google|samantha|zira|aria|natural/i.test(x.name))||VO.find(x=>/^en/i.test(x.lang));
+ (t.match(/[^.!?]+[.!?]*/g)||[t]).forEach(p=>{const u=new SpeechSynthesisUtterance(p.trim());u.lang="en-US";u.rate=.85;if(v)u.voice=v;speechSynthesis.speak(u)});
+ setTimeout(()=>{if(!speechSynthesis.speaking&&!speechSynthesis.pending)msg("No voice was produced. Turn the phone volume up and install a text-to-speech voice (on Android: Google Speech Services), then try again.")},1800);
+}
+function sp(b){const t=b.dataset.t,f=b.dataset.f;beep("tap");if(cur)cur.pause();let used=false;const go=()=>{if(!used){used=true;say(t)}};
+ if(f){const a=new Audio(f);cur=a;a.onerror=go;a.play().catch(go)}else say(t)}
+function tabs(){
+ document.documentElement.style.setProperty("--ac",CL[c]);
+ $("chs").innerHTML=D.map((d,k)=>`<button class="${k===c?"on":""}" onclick="c=${k};render()">${EM[k]} ${d.n}</button>`).join("");
+ $("sks").innerHTML=SK.map((n,k)=>`<button class="${k===s?"on":""}" onclick="s=${k};render()"><span class="em">${SE[k]}</span>${n}</button>`).join("");
+}
+function qa(list){return list.map((x,i)=>`<div class="it"><b>${i+1}.</b> ${x[0]}<br><button class="sm" onclick="rv(this)">Show answer</button><span class="ans" hidden>${x[1]}</span></div>`).join("")}
+function rv(b){const a=b.nextElementSibling;a.hidden=!a.hidden;beep("show");b.textContent=a.hidden?"Show answer":"Hide answer"}
+function chk(b){const i=b.previousElementSibling,ok=i.dataset.a.split("|").some(a=>nz(a)===nz(i.value));const r=b.nextElementSibling;r.className="res "+(ok?"ok":"bad");r.textContent=ok?"✓ Correct 🎉":"✗ Answer: "+i.dataset.a.split("|")[0];beep(ok?"ok":"bad");const cd=b.closest(".card"),n=cd.querySelectorAll("input[data-a]").length,g=cd.querySelectorAll(".res.ok").length;cd.querySelector(".prog i").style.width=g/n*100+"%";cd.querySelector(".sc").textContent=g+" / "+n+" correct"+(g===n?" — perfect! 🌟":"")}
+function listen(d){
+ return `<div class="card"><h2 style="margin-top:0">Listen and Answer</h2><p class="sub">Press Play to hear the text. Listen twice, answer the questions, then check your answers.</p>`+
+ d.L.p.map((p,i)=>`<div class="it"><b>${p[0]}</b> <button class="sm play" onclick="sp(this)" data-t="${p[1]}" data-f="audio/ch${c+5}-${i+1}.mp3">🔊 Play</button> <button class="sm" onclick="const e=this.nextElementSibling;e.hidden=!e.hidden">Show script</button><div class="txt" hidden>${p[1]}</div></div>`).join("")+
+ `<h2>Questions</h2>${qa(d.L.q)}</div>`}
+function read(d){return `<div class="card"><h2 style="margin-top:0">${d.R.t}</h2><div class="txt">${d.R.x}</div><h2>Reading Comprehension</h2>${qa(d.R.q)}</div>`}
+function write(d){const W=d.W;
+ return `<div class="card"><h2 style="margin-top:0">Activity 1: Complete the Sentences</h2><p class="sub">${W.f.i}</p><div class="prog"><i></i></div><div class="sub sc">0 / ${W.f.a.length} correct</div>`+
+ W.f.a.map((x,i)=>{const p=x[0].split("____");return `<div class="it"><b>${i+1}.</b> ${p[0]}<input type="text" data-a="${x[1]}" aria-label="answer ${i+1}">${p[1]||""} <button class="sm" onclick="chk(this)">Check</button><span class="res"></span></div>`}).join("")+
+ `</div><div class="card"><h2 style="margin-top:0">Activity 2</h2><p class="sub">${W.e.i}</p>${qa(W.e.a)}</div>`+
+ `<div class="card"><h2 style="margin-top:0">Activity 3: Write</h2><p>${W.t.i}</p><textarea placeholder="Write here"></textarea><h2>Checklist</h2>${W.t.c.map(x=>`<label><input type="checkbox"> ${x}</label>`).join("")}</div>`}
+function speak(d){const S=d.S;
+ return `<div class="card"><h2 style="margin-top:0">Ask and Answer (Pair Work)</h2><p class="sub">Practise with a partner. Say your own answer first, then check the sample.</p>`+
+ S.q.map((x,i)=>`<div class="it"><b>${i+1}.</b> ${x[0]}`+(x[1]?`<br><button class="sm play" onclick="sp(this)" data-t="${x[1]}">🔊 Listen</button> <button class="sm" onclick="rv(this)">Show sample answer</button><span class="ans" hidden>${x[1]}</span>`:"")+`</div>`).join("")+
+ `</div><div class="card"><h2 style="margin-top:0">Group and Class Tasks</h2>${S.t.map(t=>`<p>${t}</p>`).join("")}</div>`}
+function render(){tabs();const d=D[c];$("view").innerHTML=`<h2 class="ch">${EM[c]} Chapter ${d.n} · ${SK[s]}</h2>`+[listen,read,write,speak][s](d)}
+render();
+</script>
+</body>
+</html>
